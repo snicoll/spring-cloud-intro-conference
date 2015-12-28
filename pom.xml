@@ -23,6 +23,7 @@
 
 		<module>config-server</module>
 		<module>eureka-server</module>
+		<module>hystrix-dashboard</module>
 	</modules>
 
 	<dependencyManagement>

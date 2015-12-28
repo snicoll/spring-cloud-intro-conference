@@ -25,6 +25,7 @@ import example.customer.domain.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,7 @@ import org.springframework.stereotype.Service;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableCircuitBreaker
 public class CustomerApplication {
 
 	public static void main(String[] args) {
