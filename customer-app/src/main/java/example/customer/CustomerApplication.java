@@ -17,7 +17,6 @@ package example.customer;
 
 import javax.annotation.PostConstruct;
 
-import example.customer.config.CustomerProperties;
 import example.customer.domain.Address;
 import example.customer.domain.Customer;
 import example.customer.domain.CustomerRepository;
@@ -26,10 +25,8 @@ import example.customer.domain.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * Spring Boot application bootstrap class to run a customer service and
@@ -40,16 +37,11 @@ import org.springframework.web.client.RestTemplate;
  * @author Stephane Nicoll
  */
 @SpringBootApplication
-@EnableConfigurationProperties(CustomerProperties.class)
+@EnableDiscoveryClient
 public class CustomerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CustomerApplication.class, args);
-	}
-
-	@Bean
-	public RestTemplate restTemplate() {
-		return new RestTemplate();
 	}
 
 	@Service

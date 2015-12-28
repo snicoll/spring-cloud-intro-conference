@@ -17,6 +17,7 @@ package example.store;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * Spring configuration class main application bootstrap point.
@@ -25,6 +26,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Stephane Nicoll
  */
 @SpringBootApplication
+@EnableDiscoveryClient
 public class StoreApplication {
 
 	public static void main(String[] args) {
