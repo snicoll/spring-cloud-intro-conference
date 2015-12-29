@@ -20,4 +20,16 @@
 		</dependency>
 	</dependencies>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.cloudfoundry</groupId>
+				<artifactId>cf-maven-plugin</artifactId>
+				<configuration>
+					<appname>${project.prefix}eureka</appname>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>
