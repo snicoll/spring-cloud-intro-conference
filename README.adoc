@@ -1,0 +1,62 @@
+== Spring Cloud Introduction (conference format)
+
+This is the sample app used during an introduction to Spring Cloud (conference format,
+~ 50min).
+
+The purpose of this sample is to break a monolith for a Coffee app and show how Spring
+Cloud can help in the process. Each commit represents a step towards the end goal, that
+is:
+
+* Create a `Profile` controller that uses both the `customer-app` and the `store-app` to
+provide a customer profile including their nearest stores.
+* Because we can't hard-code the url of the `store-app` service, we use the Spring Boot
+infrastructure to create a `@ConfigurationProperties` bean. This step also demonstrates
+the use of configuration meta-data to add assistance in the IDE.
+* Instead of having a configuration per app, we can share the configuration of the whole
+infrastructure in a single place using a config server. This step uses a separate repository
+for the configuration (see https://github.com/snicoll-demos/spring-cloud-intro-conference-config[spring-cloud-intro-conference-config]).
+* We can further improve the solution by adding a service registry (`Eureka`) so that the
+apps register themselves and can easily be located. This removes the use of a key for the
+url of the `store-app` service.
+* What happens if the `store-app` is down? If we want to avoid cascading failures, we can
+use Hystrix and the circuit breaker.
+* Finally, what does it take to deploy this infrastructure to the Cloud? Not much really:
+the only thing required is the location of the config server.
+
+=== Running the app locally
+
+There are many ways to start these apps locally:
+
+* Run the `main` method (e.g. `CustomerApplication`) right from your ide
+* On the command-line, execute `mvn spring-boot:run`
+* Package the project (`mvn package`) and _just_ execute the jar, e.g.
+`java -jar target/customer-app-0.0.1-SNAPSHOT.jar`
+
+=== Running the app in the cloud
+
+If you want to run that exact same app in the cloud, you need first an account with a
+cloud provider. At the time of writing, you can try _Pivotal Web Services_ for free for
+60 days, check `https://run.pivotal.io/`
+
+The maven configuration expects to deploy the apps to PCF, check the root `pom.xml` for
+more details. You need to provide your CloudFoundry credentials to Maven. To do so,
+update your `~/.m2/settings.xml`
+
+```
+<servers>
+	<server>
+		<id>pcf-instance</id>
+		<username>your-cf-email@example.com</username>
+		<password>secret</password>
+	</server>
+</servers>
+```
+
+TIP: You can avoid storing your password in plain text in your `settings.xml` as Maven
+https://maven.apache.org/guides/mini/guide-encryption.html[supports encryption]
+
+In order to avoid clashes with other apps, the project defines a `project-prefix`
+(currently set to `my-test-` in the root `pom.xml`). Make sure to update that to a unique
+value first!
+
+Pushing your app to the cloud should be as easy as invoking `mvn cf:push` on the command-line.
